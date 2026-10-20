@@ -695,16 +695,26 @@
   }
 
   function writeRow(token) {
-    var url = 'https://graph.microsoft.com/v1.0/drives/' + encodeURIComponent(CFG.driveId) + '/items/' + CFG.itemId +
-              '/workbook/tables/' + CFG.table + '/rows';
-    return fetch(url, {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ values: rowValues(account) })
-    }).then(function (r) {
-      if (r.ok) return;
-      return r.text().then(function (t) { var e = new Error('HTTP ' + r.status + ' ' + t); e.status = r.status; throw e; });
-    });
+    var W = 'https://graph.microsoft.com/v1.0/drives/' + encodeURIComponent(CFG.driveId) + '/items/' + CFG.itemId + '/workbook';
+    var T = W + '/tables/' + CFG.table;
+    var H = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    var body = JSON.stringify({ values: rowValues(account) });
+    // Si la tabla solo tiene su fila vacía inicial, se completa esa fila; si no, se agrega una fila nueva al final
+    return fetch(T + '/rows/itemAt(index=0)/range?$select=address,values', { headers: H })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (first) {
+        var empty = first && first.values && first.values[0].every(function (v) { return v === '' || v === null; });
+        if (empty) {
+          var parts = first.address.split('!');
+          var sheet = parts[0].replace(/^'|'$/g, '');
+          return fetch(W + "/worksheets('" + encodeURIComponent(sheet) + "')/range(address='" + parts[1] + "')", { method: 'PATCH', headers: H, body: body });
+        }
+        return fetch(T + '/rows', { method: 'POST', headers: H, body: body });
+      })
+      .then(function (r) {
+        if (r.ok) return;
+        return r.text().then(function (t) { var e = new Error('HTTP ' + r.status + ' ' + t); e.status = r.status; throw e; });
+      });
   }
 
   function errorText(err) {
