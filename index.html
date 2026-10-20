@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario de entrevista · Interview form — 333 Jobs</title>
+<meta name="description" content="Formulario de entrevista de 333 Jobs / 333 Jobs interview form">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #1F6DB1;
+    --azul-osc: #185a93;
+    --azul-claro: #D1E3F6;
+    --azul-fondo: #EEF4FB;
+    --naranja: #E87722;
+    --gris: #53565A;
+    --verde: #8CC63F;
+    --texto: #1a1a1a;
+    --borde: #c9d6e6;
+    --error: #c0392b;
+    --radio: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: var(--azul-fondo);
+    color: var(--texto);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header { background: var(--azul); color: #fff; }
+  .header-inner {
+    max-width: 820px; margin: 0 auto; padding: 22px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .rombos { display: flex; gap: 5px; align-items: center; padding: 4px 2px; }
+  .rombo {
+    width: 24px; height: 24px; background: #fff; transform: rotate(45deg);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .rombo span {
+    transform: rotate(-45deg); font-weight: 900; font-size: 11px; color: var(--azul); line-height: 1;
+  }
+  .logo-text { margin-left: 12px; display: flex; flex-direction: column; line-height: 1; }
+  .logo-333 { font-weight: 900; font-size: 22px; letter-spacing: 1px; color: #fff; }
+  .logo-333 sup { font-size: 10px; vertical-align: super; }
+  .logo-jobs { font-weight: 300; font-size: 12px; letter-spacing: 5px; color: rgba(255,255,255,.8); margin-top: 3px; }
+  .header-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.7); text-align: right; line-height: 1.6;
+  }
+  .divider { height: 3px; background: linear-gradient(to right, var(--naranja), var(--azul)); }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    position: sticky; top: 0; z-index: 10; background: rgba(238,244,251,.94);
+    backdrop-filter: blur(6px); border-bottom: 1px solid var(--azul-claro);
+  }
+  .progress-inner { max-width: 820px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 14px; }
+  .progress-bar { flex: 1; height: 6px; background: var(--azul-claro); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0; background: var(--azul); border-radius: 99px; transition: width .3s ease; }
+  .progress-label { font-size: 11px; font-weight: 700; color: var(--azul); min-width: 38px; text-align: right; }
+
+  .auth { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .auth-btn {
+    font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; background: var(--azul);
+    border: 0; border-radius: 6px; padding: 7px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+  }
+  .auth-btn:hover { background: var(--azul-osc); }
+  .auth-btn.ghost { background: transparent; color: var(--azul); padding: 4px 6px; font-weight: 600; text-decoration: underline; }
+  .auth-user { font-size: 12px; font-weight: 600; color: var(--gris); display: inline-flex; align-items: center; gap: 6px; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .auth-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--verde); flex-shrink: 0; }
+  .ms-icon { width: 12px; height: 12px; display: inline-grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+  .ms-icon i { background: #fff; display: block; }
+  .notice {
+    margin-top: 18px; display: flex; gap: 10px; align-items: flex-start; background: var(--azul-fondo);
+    border-left: 3px solid var(--azul); border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: var(--gris);
+  }
+  .notice b { color: var(--azul); }
+  .btn.secondary { background: #fff; color: var(--azul); border: 1.5px solid var(--azul); margin-top: 26px; }
+  .btn.secondary:hover { background: var(--azul-fondo); }
+
+  /* ── HERO ── */
+  main { max-width: 820px; margin: 0 auto; padding: 32px 24px 64px; }
+  .hero {
+    background: #fff; border-radius: var(--radio); padding: 34px 36px 30px;
+    border-top: 4px solid var(--azul); box-shadow: 0 2px 10px rgba(31,109,177,.06);
+  }
+  .eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--naranja); margin-bottom: 14px;
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.15; color: var(--azul); }
+  .hero h1 .en { display: block; font-weight: 300; color: var(--gris); font-size: 24px; margin-top: 4px; }
+  .hero p { font-size: 14px; color: var(--gris); margin-top: 16px; max-width: 620px; }
+  .hero p.en { font-style: italic; margin-top: 6px; }
+  .req-note { font-size: 12px; color: var(--gris); margin-top: 18px; }
+  .req-note b { color: var(--naranja); }
+
+  /* ── SECTIONS ── */
+  .section {
+    background: #fff; border-radius: var(--radio); margin-top: 20px; padding: 28px 36px 10px;
+    box-shadow: 0 2px 10px rgba(31,109,177,.06);
+  }
+  .section-head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--azul-claro); }
+  .section-num {
+    width: 34px; height: 34px; flex-shrink: 0; border-radius: 8px; background: var(--azul);
+    color: #fff; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center;
+  }
+  .section-title { font-size: 17px; font-weight: 700; color: var(--azul); line-height: 1.2; }
+  .section-title .en { display: block; font-size: 13px; font-weight: 400; font-style: italic; color: var(--gris); margin-top: 2px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+  .grid .full { grid-column: 1 / -1; }
+
+  .field { margin-bottom: 22px; }
+  .field > label, .field > .label, fieldset legend {
+    display: block; font-size: 14px; font-weight: 600; color: var(--texto); margin-bottom: 2px; line-height: 1.35;
+  }
+  .field .en, fieldset legend .en {
+    display: block; font-size: 12.5px; font-weight: 400; font-style: italic; color: var(--gris); margin-bottom: 8px;
+  }
+  .req { color: var(--naranja); font-weight: 700; margin-left: 2px; }
+
+  input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number], select, textarea {
+    width: 100%; font-family: inherit; font-size: 14px; color: var(--texto);
+    background: #fff; border: 1.5px solid var(--borde); border-radius: 8px;
+    padding: 11px 13px; transition: border-color .15s, box-shadow .15s; appearance: none; -webkit-appearance: none;
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231F6DB1' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+  }
+  textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(31,109,177,.15); }
+  input[readonly] { background: var(--azul-fondo); color: var(--azul); font-weight: 700; }
+  ::placeholder { color: #9aa5b1; }
+
+  .inline { display: flex; gap: 10px; }
+  .inline > * { flex: 1; }
+  .inline .w-sm { flex: 0 0 120px; }
+
+  fieldset { border: 0; margin-bottom: 22px; }
+  .options { display: flex; flex-wrap: wrap; gap: 10px; }
+  .opt { position: relative; }
+  .opt input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .opt span {
+    display: inline-flex; flex-direction: column; padding: 10px 16px; border: 1.5px solid var(--borde);
+    border-radius: 8px; font-size: 13.5px; font-weight: 600; color: var(--texto); background: #fff;
+    cursor: pointer; transition: all .15s; line-height: 1.3;
+  }
+  .opt span small { font-weight: 400; font-style: italic; color: var(--gris); font-size: 12px; }
+  .opt input:checked + span { border-color: var(--azul); background: var(--azul); color: #fff; }
+  .opt input:checked + span small { color: rgba(255,255,255,.85); }
+  .opt input:focus-visible + span { box-shadow: 0 0 0 3px rgba(31,109,177,.25); }
+
+  .counter { font-size: 11px; color: #8a96a3; text-align: right; margin-top: 4px; }
+
+  .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--error); }
+  .field.invalid .opt span, fieldset.invalid .opt span { border-color: var(--error); }
+  .err { display: none; font-size: 12px; color: var(--error); margin-top: 6px; font-weight: 500; }
+  .invalid .err { display: block; }
+
+  .field > label.consent {
+    display: flex; gap: 12px; align-items: flex-start; background: var(--azul-fondo);
+    border: 1.5px solid var(--azul-claro); border-radius: 8px; padding: 16px; cursor: pointer;
+  }
+  .consent input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--azul); flex-shrink: 0; cursor: pointer; }
+  .consent p { font-size: 13px; color: var(--texto); }
+  .consent p.en { font-style: italic; color: var(--gris); margin-top: 4px; }
+  .field.invalid .consent { border-color: var(--error); }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* ── SUBMIT ── */
+  .actions { margin-top: 26px; text-align: center; }
+  .btn {
+    font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: .5px;
+    background: var(--azul); color: #fff; border: 0; border-radius: 8px; padding: 15px 44px; cursor: pointer;
+    transition: background .15s, transform .1s; display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn:hover { background: var(--azul-osc); }
+  .btn:active { transform: translateY(1px); }
+  .btn[disabled] { opacity: .65; cursor: progress; }
+  .btn .en { font-weight: 400; opacity: .85; }
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; display: none; }
+  .btn[disabled] .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .form-msg { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--error); min-height: 20px; }
+
+  /* ── THANK YOU ── */
+  .thanks { display: none; background: #fff; border-radius: var(--radio); padding: 56px 36px; text-align: center; border-top: 4px solid var(--verde); box-shadow: 0 2px 10px rgba(31,109,177,.06); }
+  .thanks .check { width: 64px; height: 64px; border-radius: 50%; background: var(--verde); margin: 0 auto 22px; display: flex; align-items: center; justify-content: center; }
+  .thanks h2 { font-size: 26px; font-weight: 800; color: var(--azul); }
+  .thanks h2 .en { display: block; font-size: 19px; font-weight: 300; color: var(--gris); margin-top: 4px; }
+  .thanks p { font-size: 14px; color: var(--gris); margin-top: 16px; }
+  .thanks p.en { font-style: italic; margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--gris); color: rgba(255,255,255,.7); text-align: center; padding: 22px 24px; font-size: 11.5px; line-height: 1.7; }
+  footer strong { color: #fff; }
+  footer a { color: var(--azul-claro); text-decoration: none; font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .header-tag { display: none; }
+    main { padding: 20px 16px 48px; }
+    .hero, .section { padding-left: 20px; padding-right: 20px; }
+    .hero h1 { font-size: 26px; }
+    .hero h1 .en { font-size: 19px; }
+    .grid { grid-template-columns: 1fr; }
+    .inline { flex-wrap: wrap; }
+    .inline .w-sm { flex: 1 1 100px; }
+    .progress-inner { padding: 10px 16px; flex-wrap: wrap; }
+    .auth { width: 100%; justify-content: space-between; }
+    .btn { width: 100%; justify-content: center; padding: 15px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo" aria-label="333 Jobs">
+      <div class="rombos" aria-hidden="true">
+        <div class="rombo"><span>3</span></div>
+        <div class="rombo"><span>3</span></div>
+        <div class="rombo"><span>3</span></div>
+      </div>
+      <div class="logo-text">
+        <span class="logo-333">333<sup>®</sup></span>
+        <span class="logo-jobs">JOBS</span>
+      </div>
+    </div>
+    <div class="header-tag">Recursos Humanos · Human Resources<br>Sector Porcino · Swine Industry</div>
+  </div>
+</header>
+<div class="divider"></div>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-inner">
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0%</div>
+    <div class="auth" id="authBox"></div>
+  </div>
+</div>
+
+<main>
+  <div id="formView">
+    <section class="hero">
+      <div class="eyebrow">333 Jobs · Proceso de selección · Selection process</div>
+      <h1>Formulario de entrevista<span class="en">Interview form</span></h1>
+      <p>Gracias por tu interés en sumarte. Completa este formulario con tranquilidad: no hay respuestas correctas o incorrectas, queremos conocerte mejor.</p>
+      <p class="en">Thank you for your interest in joining us. Take your time to complete this form: there are no right or wrong answers, we just want to get to know you better.</p>
+      <div class="req-note">Los campos marcados con <b>*</b> son obligatorios · Fields marked with <b>*</b> are required</div>
+      <div class="notice"><span>🔒</span><span>Para enviar se requiere iniciar sesión con una <b>cuenta de 333</b>. · <i>Signing in with a <b>333 account</b> is required to submit.</i></span></div>
+    </section>
+
+    <form id="interviewForm" novalidate autocomplete="on">
+      <!-- honeypot -->
+      <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <!-- 1 · ENTREVISTA -->
+      <section class="section">
+        <div class="section-head">
+          <div class="section-num">1</div>
+          <div class="section-title">Datos de la entrevista<span class="en">Interview details</span></div>
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label for="FechaEntrevista">Fecha de entrevista<span class="req">*</span></label>
+            <span class="en">Interview date</span>
+            <input type="date" id="FechaEntrevista" name="FechaEntrevista" required>
+            <div class="err">Indica la fecha · Please enter the date</div>
+          </div>
+          <div class="field">
+            <label for="Area">Área<span class="req">*</span></label>
+            <span class="en">Area / Department</span>
+            <input type="text" id="Area" name="Area" maxlength="255" required placeholder="Ej.: Producción · e.g. Production">
+            <div class="err">Completa este campo · This field is required</div>
+          </div>
+          <div class="field full">
+            <label for="Puesto">Puesto al que te postulas<span class="req">*</span></label>
+            <span class="en">Position you are applying for</span>
+            <input type="text" id="Puesto" name="Puesto" maxlength="255" required placeholder="Ej.: Veterinario/a Jr · e.g. Junior Veterinarian">
+            <div class="err">Completa este campo · This field is required</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · DATOS PERSONALES -->
+      <section class="section">
+        <div class="section-head">
+          <div class="section-num">2</div>
+          <div class="section-title">Datos personales<span class="en">Personal details</span></div>
+        </div>
+        <div class="grid">
+          <div class="field full">
+            <label for="Title">Nombre y apellido<span class="req">*</span></label>
+            <span class="en">Full name</span>
+            <input type="text" id="Title" name="Title" maxlength="255" required autocomplete="name">
+            <div class="err">Completa este campo · This field is required</div>
+          </div>
+          <div class="field">
+            <label for="CorreoElectronico">Correo electrónico<span class="req">*</span></label>
+            <span class="en">Email</span>
+            <input type="email" id="CorreoElectronico" name="CorreoElectronico" maxlength="255" required autocomplete="email" placeholder="nombre@correo.com">
+            <div class="err">Ingresa un correo válido · Please enter a valid email</div>
+          </div>
+          <div class="field">
+            <label for="Telefono">Teléfono de contacto<span class="req">*</span></label>
+            <span class="en">Contact phone number</span>
+            <input type="tel" id="Telefono" name="Telefono" maxlength="40" required autocomplete="tel" placeholder="+54 9 341 000 0000">
+            <div class="err">Completa este campo · This field is required</div>
+          </div>
+          <div class="field">
+            <label for="FechaNacimiento">Fecha de nacimiento<span class="req">*</span></label>
+            <span class="en">Date of birth</span>
+            <input type="date" id="FechaNacimiento" name="FechaNacimiento" required autocomplete="bday">
+            <div class="err">Indica una fecha válida · Please enter a valid date</div>
+          </div>
+          <div class="field">
+            <label for="Edad">Edad</label>
+            <span class="en">Age (se calcula sola · calculated automatically)</span>
+            <input type="text" id="Edad" name="Edad" readonly tabindex="-1" placeholder="—">
+          </div>
+          <div class="field">
+            <label for="EstadoCivil">Estado civil<span class="req">*</span></label>
+            <span class="en">Marital status</span>
+            <select id="EstadoCivil" name="EstadoCivil" required>
+              <option value="">Selecciona · Select</option>
+              <option>Soltero/a · Single</option>
+              <option>Casado/a · Married</option>
+              <option>En pareja / Unión convivencial · Domestic partnership</option>
+              <option>Divorciado/a o separado/a · Divorced or separated</option>
+              <option>Viudo/a · Widowed</option>
+              <option>Prefiero no responder · Prefer not to say</option>
+            </select>
+            <div class="err">Selecciona una opción · Please select an option</div>
+          </div>
+          <div class="field">
+            <label for="PaisResidencia">País de residencia<span class="req">*</span></label>
+            <span class="en">Country of residence</span>
+            <input type="text" id="PaisResidencia" name="PaisResidencia" maxlength="255" required list="paises" autocomplete="country-name">
+            <datalist id="paises">
+              <option>Argentina</option><option>Bolivia</option><option>Brasil · Brazil</option><option>Chile</option>
+              <option>Colombia</option><option>Costa Rica</option><option>Ecuador</option><option>España · Spain</option>
+              <option>Guatemala</option><option>México · Mexico</option><option>Paraguay</option><option>Perú · Peru</option>
+              <option>República Dominicana · Dominican Republic</option><option>Uruguay</option><option>Venezuela</option>
+              <option>Estados Unidos · United States</option>
+            </datalist>
+            <div class="err">Completa este campo · This field is required</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 · SOBRE TI -->
+      <section class="section">
+        <div class="section-head">
+          <div class="section-num">3</div>
+          <div class="section-title">Sobre ti<span class="en">About you</span></div>
+        </div>
+        <div class="field">
+          <label for="Logros">Describe tu/s mejor/es logro/s<span class="req">*</span></label>
+          <span class="en">Describe your greatest achievement(s)</span>
+          <textarea id="Logros" name="Logros" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="Cualidades">Cuéntanos tus mejores cualidades<span class="req">*</span></label>
+          <span class="en">Tell us about your best qualities</span>
+          <textarea id="Cualidades" name="Cualidades" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="TiempoLibre">¿En qué inviertes tu tiempo libre? Hobbies<span class="req">*</span></label>
+          <span class="en">How do you spend your free time? Hobbies</span>
+          <textarea id="TiempoLibre" name="TiempoLibre" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="MetasPersonales">¿Tienes metas personales?<span class="req">*</span></label>
+          <span class="en">Do you have personal goals?</span>
+          <textarea id="MetasPersonales" name="MetasPersonales" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+      </section>
+
+      <!-- 4 · PERFIL LABORAL -->
+      <section class="section">
+        <div class="section-head">
+          <div class="section-num">4</div>
+          <div class="section-title">Perfil laboral<span class="en">Work profile</span></div>
+        </div>
+        <div class="field">
+          <label for="QueBuscaEmpleo">¿Qué buscas de un empleo?<span class="req">*</span></label>
+          <span class="en">What are you looking for in a job?</span>
+          <textarea id="QueBuscaEmpleo" name="QueBuscaEmpleo" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="CualidadesTrabajo">¿Cuáles son tus mejores cualidades a la hora de trabajar?<span class="req">*</span></label>
+          <span class="en">What are your best qualities when it comes to work?</span>
+          <textarea id="CualidadesTrabajo" name="CualidadesTrabajo" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="Dificultades">¿Cuáles son tus dificultades?<span class="req">*</span></label>
+          <span class="en">What do you find most challenging?</span>
+          <textarea id="Dificultades" name="Dificultades" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="ComoSeVe">¿Cómo te ves a ti mismo/a?<span class="req">*</span></label>
+          <span class="en">How do you see yourself?</span>
+          <textarea id="ComoSeVe" name="ComoSeVe" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="TrabajoPresion">¿Cómo te sientes trabajando bajo presión?<span class="req">*</span></label>
+          <span class="en">How do you feel about working under pressure?</span>
+          <textarea id="TrabajoPresion" name="TrabajoPresion" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+
+        <fieldset class="field" data-group="ManejoTiempos">
+          <legend>¿Prefieres manejar tus tiempos o que te determinen los horarios para organizarte mejor?<span class="req">*</span><span class="en">Do you prefer managing your own time, or having set working hours to stay organized?</span></legend>
+          <div class="options">
+            <label class="opt"><input type="radio" name="ManejoTiempos" value="Manejar mis propios tiempos · Managing my own time" required><span>Manejar mis propios tiempos<small>Managing my own time</small></span></label>
+            <label class="opt"><input type="radio" name="ManejoTiempos" value="Horarios definidos · Set working hours"><span>Horarios definidos<small>Set working hours</small></span></label>
+            <label class="opt"><input type="radio" name="ManejoTiempos" value="Me adapto a ambos · I'm comfortable with both"><span>Me adapto a ambos<small>I'm comfortable with both</small></span></label>
+          </div>
+          <div class="err">Selecciona una opción · Please select an option</div>
+        </fieldset>
+
+        <fieldset class="field" data-group="Reubicacion">
+          <legend>¿Estás dispuesto/a a establecerte en otra provincia o país?<span class="req">*</span><span class="en">Are you willing to relocate to another province/state or country?</span></legend>
+          <div class="options">
+            <label class="opt"><input type="radio" name="Reubicacion" value="Sí · Yes" required><span>Sí<small>Yes</small></span></label>
+            <label class="opt"><input type="radio" name="Reubicacion" value="No · No"><span>No<small>No</small></span></label>
+            <label class="opt"><input type="radio" name="Reubicacion" value="Podría evaluarlo · I'd consider it"><span>Podría evaluarlo<small>I'd consider it</small></span></label>
+          </div>
+          <div class="err">Selecciona una opción · Please select an option</div>
+        </fieldset>
+
+        <div class="field">
+          <label for="Liderazgo">¿Te consideras una persona con liderazgo? ¿Por qué?<span class="req">*</span></label>
+          <span class="en">Do you consider yourself a leader? Why?</span>
+          <textarea id="Liderazgo" name="Liderazgo" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+        <div class="field">
+          <label for="Desafios">¿Te gustan los desafíos? Cuéntanos alguno<span class="req">*</span></label>
+          <span class="en">Do you enjoy challenges? Tell us about one</span>
+          <textarea id="Desafios" name="Desafios" maxlength="2000" required></textarea>
+          <div class="err">Completa este campo · This field is required</div>
+        </div>
+      </section>
+
+      <!-- 5 · PRETENSIÓN -->
+      <section class="section">
+        <div class="section-head">
+          <div class="section-num">5</div>
+          <div class="section-title">Pretensión económica<span class="en">Salary expectation</span></div>
+        </div>
+        <div class="field" data-group="Pretension">
+          <div class="label">Monto bruto esperado<span class="req">*</span></div>
+          <span class="en">Expected gross amount</span>
+          <div class="inline">
+            <select id="Moneda" aria-label="Moneda · Currency" class="w-sm">
+              <option value="USD">USD</option><option value="EUR">EUR</option><option value="ARS">ARS</option>
+              <option value="BOB">BOB</option><option value="BRL">BRL</option><option value="CLP">CLP</option>
+              <option value="COP">COP</option><option value="MXN">MXN</option><option value="PEN">PEN</option>
+              <option value="PYG">PYG</option><option value="UYU">UYU</option>
+            </select>
+            <input type="text" id="Monto" inputmode="decimal" maxlength="30" required placeholder="Ej.: 1.500 · e.g. 1,500" aria-label="Monto · Amount">
+            <select id="Periodo" aria-label="Período · Period">
+              <option value="mensual · monthly">Mensual · Monthly</option>
+              <option value="anual · annual">Anual · Annual</option>
+            </select>
+          </div>
+          <div class="err">Indica el monto · Please enter the amount</div>
+        </div>
+      </section>
+
+      <!-- 6 · CONSENTIMIENTO -->
+      <section class="section" style="padding-bottom:28px">
+        <div class="field" style="margin-bottom:0">
+          <label class="consent" for="Consentimiento">
+            <input type="checkbox" id="Consentimiento" name="Consentimiento" required>
+            <div>
+              <p>Acepto que 333 Corporate trate mis datos personales con el único fin de gestionar este proceso de selección y que los conserve para futuras búsquedas.<span class="req">*</span></p>
+              <p class="en">I agree that 333 Corporate may process my personal data solely to manage this selection process and keep it on file for future openings.</p>
+            </div>
+          </label>
+          <div class="err">Debes aceptar para continuar · You must accept to continue</div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="submit" class="btn" id="submitBtn"><span class="spinner"></span>Enviar <span class="en">· Submit</span></button>
+        <div class="form-msg" id="formMsg" role="alert"></div>
+      </div>
+    </form>
+  </div>
+
+  <section class="thanks" id="thanksView" aria-live="polite">
+    <div class="check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h2>¡Gracias! Recibimos tus respuestas<span class="en">Thank you! We've received your answers</span></h2>
+    <p>El equipo de 333 Jobs las revisará y se pondrá en contacto contigo.</p>
+    <p class="en">The 333 Jobs team will review them and get back to you.</p>
+    <button type="button" class="btn secondary" id="newBtn">Cargar otra entrevista <span class="en">· New interview</span></button>
+  </section>
+</main>
+
+<footer>
+  <strong>333 Jobs</strong> · la unidad de reclutamiento de 333 especializada en el sector · the 333 recruitment unit specialized in the industry<br>
+  © <span id="year">2026</span> 333 Corporate · <a href="https://www.3tres3.com" target="_blank" rel="noopener">3tres3.com</a>
+</footer>
+
+<script src="msal-browser.min.js"></script>
+<script>
+(function () {
+  // ── Configuración: Excel "formulario entrevistado ingles.xlsx" en SharePoint 333 Recruitment ──
+  var CFG = {
+    clientId: '2cd08a77-e201-448c-b49d-84c7f91d981b',            // App Entra ID "333 Jobs - Formulario entrevista"
+    tenantId: 'a7f469f2-8d30-43b8-bcef-a8d83aa54321',            // 333 Corporate 1998, S.L.
+    driveId: 'b!rqNjxgZR006dsg1rF-IbP8aOnJ_DFeZMhj47u1qyCPkw888yGAUoQIifVRKP33W7', // 333 Recruitment > Documentos
+    itemId: '013VOM2ISYXRYBP3H75VDK6S2BPXRFCT2M',                // formulario entrevistado ingles.xlsx
+    table: 'Respuestas',
+    scopes: ['User.Read', 'Files.ReadWrite.All']
+  };
+  var BASE = location.origin + location.pathname.replace(/[^\/]*$/, '');
+
+  var form = document.getElementById('interviewForm');
+  var btn = document.getElementById('submitBtn');
+  var msg = document.getElementById('formMsg');
+  var dob = document.getElementById('FechaNacimiento');
+  var edad = document.getElementById('Edad');
+  var fechaEnt = document.getElementById('FechaEntrevista');
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Fechas por defecto / límites
+  var today = new Date();
+  var iso = function (d) { var z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10); };
+  fechaEnt.value = iso(today);
+  dob.max = iso(today);
+  dob.min = '1940-01-01';
+
+  // Edad automática
+  function calcAge() {
+    if (!dob.value) { edad.value = ''; return null; }
+    var b = new Date(dob.value + 'T12:00:00');
+    var a = today.getFullYear() - b.getFullYear();
+    var m = today.getMonth() - b.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < b.getDate())) a--;
+    if (isNaN(a) || a < 14 || a > 90) { edad.value = ''; return null; }
+    edad.value = a + ' años · years';
+    return a;
+  }
+  dob.addEventListener('change', calcAge);
+  dob.addEventListener('input', calcAge);
+
+  // Progreso
+  var requiredEls = function () { return Array.prototype.slice.call(form.querySelectorAll('[required]')); };
+  function isFilled(el) {
+    if (el.type === 'radio') return !!form.querySelector('input[name="' + el.name + '"]:checked');
+    if (el.type === 'checkbox') return el.checked;
+    return el.value.trim() !== '';
+  }
+  function updateProgress() {
+    var seen = {}, total = 0, done = 0;
+    requiredEls().forEach(function (el) {
+      var key = el.type === 'radio' ? 'r:' + el.name : el.id || el.name;
+      if (seen[key]) return; seen[key] = 1; total++;
+      if (isFilled(el)) done++;
+    });
+    var p = total ? Math.round(done / total * 100) : 0;
+    document.getElementById('progressFill').style.width = p + '%';
+    document.getElementById('progressLabel').textContent = p + '%';
+    document.getElementById('progressBar').setAttribute('aria-valuenow', p);
+  }
+  form.addEventListener('input', function (e) { clearError(e.target); updateProgress(); });
+  form.addEventListener('change', function (e) { clearError(e.target); updateProgress(); });
+
+  // Validación
+  function wrapOf(el) { return el.closest('.field') || el.closest('fieldset'); }
+  function clearError(el) { var w = wrapOf(el); if (w) w.classList.remove('invalid'); msg.textContent = ''; }
+  function validate() {
+    var firstBad = null, seen = {};
+    requiredEls().forEach(function (el) {
+      var key = el.type === 'radio' ? 'r:' + el.name : el.id || el.name;
+      if (seen[key]) return; seen[key] = 1;
+      var ok = isFilled(el);
+      if (ok && el.type === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim());
+      if (ok && el === dob) ok = calcAge() !== null;
+      var w = wrapOf(el);
+      if (!ok) { if (w) w.classList.add('invalid'); if (!firstBad) firstBad = el; }
+    });
+    if (firstBad) {
+      var target = wrapOf(firstBad) || firstBad;
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { try { firstBad.focus({ preventScroll: true }); } catch (e) {} }, 350);
+    }
+    return !firstBad;
+  }
+
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function radio(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
+  // Texto seguro para Excel: evita que "+54...", "=..." o números largos se interpreten como fórmula/número
+  function txt(v) { v = (v || '').trim(); return /^[=+\-@0-9]/.test(v) ? "'" + v : v; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function nowStr() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+
+  // Orden = columnas de la tabla "Respuestas" del Excel
+  function rowValues(acc) {
+    return [[
+      nowStr(),                               // Fecha de envío
+      acc.username || '',                     // Correo electrónico (cuenta 333 que envía)
+      acc.name || '',                         // Nombre (cuenta 333 que envía)
+      val('FechaEntrevista'),                 // Fecha de Entrevista
+      txt(val('Title')),                      // Nombre del candidato
+      txt(val('CorreoElectronico')),          // Correo del candidato
+      txt(val('Puesto')),                     // Puesto al que se postula
+      txt(val('Area')),                       // Área
+      val('FechaNacimiento'),                 // Fecha de Nacimiento
+      calcAge(),                              // Edad
+      "'" + val('Telefono'),                  // Teléfono de Contacto (siempre texto)
+      val('EstadoCivil'),                     // Estado Civil
+      txt(val('PaisResidencia')),             // País de Residencia
+      txt(val('Logros')),
+      txt(val('Cualidades')),
+      txt(val('TiempoLibre')),
+      txt(val('MetasPersonales')),
+      txt(val('QueBuscaEmpleo')),
+      txt(val('CualidadesTrabajo')),
+      txt(val('Dificultades')),
+      txt(val('ComoSeVe')),
+      txt(val('TrabajoPresion')),
+      radio('ManejoTiempos'),
+      radio('Reubicacion'),
+      txt(val('Liderazgo')),
+      txt(val('Desafios')),
+      val('Moneda') + ' ' + val('Monto') + ' bruto ' + val('Periodo').replace(' · ', ' · gross '),
+      'Sí · Yes (' + nowStr() + ')'
+    ]];
+  }
+
+  // ── Inicio de sesión con Microsoft (cuenta 333) ──
+  var authBox = document.getElementById('authBox');
+  var msal = null, account = null;
+  var msIcon = '<span class="ms-icon"><i></i><i></i><i></i><i></i></span>';
+
+  function renderAuth() {
+    if (!msal) { authBox.innerHTML = ''; return; }
+    if (account) {
+      authBox.innerHTML = '<span class="auth-user" title="' + account.username + '"><span class="auth-dot"></span>' + (account.name || account.username) + '</span>' +
+        '<button type="button" class="auth-btn ghost" id="switchBtn">Cambiar · Switch</button>';
+      document.getElementById('switchBtn').onclick = function () { login(true).catch(function () {}); };
+    } else {
+      authBox.innerHTML = '<button type="button" class="auth-btn" id="loginBtn">' + msIcon + 'Iniciar sesión 333 · Sign in</button>';
+      document.getElementById('loginBtn').onclick = function () { login(false).catch(function () {}); };
+    }
+  }
+
+  function login(selectAccount) {
+    return msal.loginPopup({ scopes: CFG.scopes, prompt: selectAccount ? 'select_account' : undefined, redirectUri: BASE + 'redirect.html' })
+      .then(function (r) { account = r.account; msal.setActiveAccount(account); renderAuth(); return account; });
+  }
+
+  function getToken() {
+    var req = { scopes: CFG.scopes, account: account, redirectUri: BASE + 'redirect.html' };
+    return msal.acquireTokenSilent(req).catch(function () { return msal.acquireTokenPopup(req); })
+      .then(function (r) { return r.accessToken; });
+  }
+
+  function initAuth() {
+    if (!window.msal) { msg.textContent = 'No se pudo cargar el inicio de sesión de Microsoft · Microsoft sign-in could not be loaded'; return Promise.resolve(); }
+    msal = new window.msal.PublicClientApplication({
+      auth: { clientId: CFG.clientId, authority: 'https://login.microsoftonline.com/' + CFG.tenantId, redirectUri: BASE + 'redirect.html' },
+      cache: { cacheLocation: 'sessionStorage' }
+    });
+    return msal.initialize().then(function () { return msal.handleRedirectPromise(); }).then(function () {
+      var accs = msal.getAllAccounts();
+      account = msal.getActiveAccount() || accs[0] || null;
+      if (account) msal.setActiveAccount(account);
+      renderAuth();
+    }).catch(function (e) { console.error(e); renderAuth(); });
+  }
+
+  function writeRow(token) {
+    var url = 'https://graph.microsoft.com/v1.0/drives/' + encodeURIComponent(CFG.driveId) + '/items/' + CFG.itemId +
+              '/workbook/tables/' + CFG.table + '/rows';
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ values: rowValues(account) })
+    }).then(function (r) {
+      if (r.ok) return;
+      return r.text().then(function (t) { var e = new Error('HTTP ' + r.status + ' ' + t); e.status = r.status; throw e; });
+    });
+  }
+
+  function errorText(err) {
+    if (err && err.status === 403) return 'Tu cuenta no tiene permiso para escribir en el Excel de 333 Recruitment. Pide acceso al sitio. · Your account cannot write to the 333 Recruitment Excel file.';
+    if (err && err.status === 404) return 'No se encontró el Excel de respuestas (¿se movió o renombró?). · The responses Excel file was not found.';
+    if (err && /user_cancelled|popup_window_error/.test(err.errorCode || '')) return 'Inicio de sesión cancelado o ventana emergente bloqueada. Permite las ventanas emergentes e intenta de nuevo. · Sign-in cancelled or popup blocked.';
+    return 'No pudimos enviar el formulario. Intenta de nuevo en unos minutos. · We could not submit the form. Please try again in a few minutes.';
+  }
+
+  function showThanks() {
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('thanksView').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('newBtn').addEventListener('click', function () {
+    form.reset();
+    fechaEnt.value = iso(new Date());
+    edad.value = '';
+    msg.textContent = '';
+    btn.disabled = false;
+    document.getElementById('thanksView').style.display = 'none';
+    document.getElementById('formView').style.display = 'block';
+    document.getElementById('progressWrap').style.display = 'block';
+    updateProgress();
+    window.scrollTo({ top: 0 });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = '';
+    if (form.website.value) { showThanks(); return; } // bot
+    if (!validate()) {
+      msg.textContent = 'Revisa los campos marcados en rojo · Please review the fields marked in red';
+      return;
+    }
+    if (!msal) { msg.textContent = errorText(); return; }
+    btn.disabled = true;
+    (account ? Promise.resolve(account) : login(false))
+      .then(getToken)
+      .then(writeRow)
+      .then(showThanks)
+      .catch(function (err) {
+        console.error(err);
+        btn.disabled = false;
+        msg.textContent = errorText(err);
+      });
+  });
+
+  initAuth();
+  updateProgress();
+})();
+</script>
+</body>
+</html>
